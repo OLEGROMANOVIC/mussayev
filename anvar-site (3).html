@@ -1,0 +1,2379 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANVAR MUSSAYEV</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:wght@400;700;900&family=Oswald:wght@700&family=Cinzel:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Playfair Display', serif;
+            overflow-x: hidden;
+            background: #000;
+            color: #fff;
+            transition: background 0.5s ease, color 0.5s ease;
+        }
+
+        /* Gündüz modu */
+        body.day-mode {
+            background: #f5f5f5;
+            color: #1a1a1a;
+        }
+
+        body.day-mode .video-background::after {
+            background: linear-gradient(180deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.8) 100%);
+        }
+
+        body.day-mode .hero-title,
+        body.day-mode .hero-subtitle {
+            text-shadow: 0 0 10px rgba(0,0,0,0.1),
+                         2px 2px 4px rgba(0,0,0,0.3);
+            color: #1a1a1a;
+        }
+
+        body.day-mode .section {
+            background: rgba(255, 255, 255, 0.85);
+            border-color: rgba(0, 0, 0, 0.1);
+        }
+
+        body.day-mode .section p,
+        body.day-mode .card p {
+            color: rgba(0, 0, 0, 0.8);
+        }
+
+        body.day-mode .card {
+            background: rgba(240, 240, 240, 0.9);
+            border-color: rgba(0, 0, 0, 0.15);
+        }
+
+        body.day-mode .quote-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-left-color: #FF6B6B;
+        }
+
+        body.day-mode .quote-text {
+            color: rgba(0, 0, 0, 0.9);
+        }
+
+        body.day-mode .smoke {
+            background: radial-gradient(circle, rgba(100,100,100,0.1) 0%, rgba(150,150,150,0.05) 30%, transparent 70%);
+        }
+
+        /* Video Background */
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: -1;
+            overflow: hidden;
+            transition: transform 0.1s ease-out;
+            will-change: transform;
+        }
+
+        .video-background video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.7;
+        }
+
+        .video-background::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.7) 100%);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            padding: 2rem;
+            transition: transform 0.1s ease-out, opacity 0.3s ease-out;
+            will-change: transform, opacity;
+        }
+
+        .hero-title {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(4rem, 15vw, 12rem);
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-align: center;
+            opacity: 0;
+            animation: smokeReveal 1.8s ease-out 0.3s forwards;
+            text-shadow: 0 0 30px rgba(255,255,255,0.3),
+                         0 0 60px rgba(255,255,255,0.2),
+                         4px 4px 8px rgba(0,0,0,0.8);
+            position: relative;
+            z-index: 2;
+            filter: blur(20px);
+        }
+
+        /* Kan damlacıkları - ANVAR MUSSAYEV üzerinde */
+        .hero-title::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-image: 
+                /* Büyük kan lekesi 1 */
+                radial-gradient(ellipse 40px 50px at 20% 30%, 
+                    #8B0000 0%, 
+                    #6B0000 20%,
+                    #4B0000 50%,
+                    transparent 70%),
+                /* Orta boy damla */
+                radial-gradient(ellipse 25px 35px at 45% 20%, 
+                    #8B0000 0%, 
+                    #6B0000 25%,
+                    transparent 60%),
+                /* Küçük damla 1 */
+                radial-gradient(circle 15px at 70% 40%, 
+                    #8B0000 0%, 
+                    #5B0000 30%,
+                    transparent 55%),
+                /* Büyük leke 2 */
+                radial-gradient(ellipse 35px 45px at 85% 25%, 
+                    #8B0000 0%, 
+                    #6B0000 20%,
+                    #4B0000 45%,
+                    transparent 65%),
+                /* Sıçrama lekesi */
+                radial-gradient(ellipse 20px 30px at 60% 60%, 
+                    #7B0000 0%, 
+                    #5B0000 30%,
+                    transparent 60%),
+                /* Küçük damla 2 */
+                radial-gradient(circle 12px at 35% 70%, 
+                    #8B0000 0%, 
+                    transparent 50%),
+                /* Mini damla */
+                radial-gradient(circle 8px at 75% 65%, 
+                    #8B0000 0%, 
+                    transparent 45%);
+            opacity: 0.75;
+            z-index: 2;
+            pointer-events: none;
+            filter: blur(0.5px);
+        }
+
+        /* Kan akıntısı efekti */
+        .hero-title::after {
+            content: '';
+            position: absolute;
+            width: 3px;
+            height: 60px;
+            background: linear-gradient(to bottom, 
+                #8B0000 0%, 
+                #6B0000 30%, 
+                #4B0000 60%,
+                transparent 100%);
+            top: 35%;
+            left: 22%;
+            opacity: 0.8;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            filter: blur(0.3px);
+        }
+        @keyframes smokeReveal {
+            0% {
+                opacity: 0;
+                filter: blur(40px) brightness(0.3);
+                transform: scale(1.3);
+                text-shadow: 0 0 80px rgba(255,255,255,0.8),
+                            0 0 120px rgba(255,255,255,0.6);
+            }
+            30% {
+                opacity: 0.3;
+                filter: blur(25px) brightness(0.6);
+                transform: scale(1.15);
+            }
+            60% {
+                opacity: 0.7;
+                filter: blur(10px) brightness(0.9);
+                transform: scale(1.05);
+            }
+            100% {
+                opacity: 1;
+                filter: blur(0px) brightness(1);
+                transform: scale(1);
+                text-shadow: 0 0 30px rgba(255,255,255,0.3),
+                            0 0 60px rgba(255,255,255,0.2),
+                            4px 4px 8px rgba(0,0,0,0.8);
+            }
+        }
+
+        .hero-subtitle {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1.5rem, 4vw, 3rem);
+            font-weight: 700;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            margin-top: 1rem;
+            opacity: 0;
+            animation: smokeRevealSubtitle 1.2s ease-out 1.5s forwards;
+            text-shadow: 0 0 20px rgba(255,255,255,0.5),
+                         2px 2px 4px rgba(0,0,0,0.8);
+            position: relative;
+            z-index: 2;
+            filter: blur(20px);
+        }
+
+        /* Kan damlacıkları - VOR V ZAKONE üzerinde */
+        .hero-subtitle::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-image: 
+                /* Büyük leke sol */
+                radial-gradient(ellipse 30px 40px at 15% 35%, 
+                    #8B0000 0%, 
+                    #6B0000 25%,
+                    #4B0000 50%,
+                    transparent 70%),
+                /* Orta damla */
+                radial-gradient(circle 18px at 50% 25%, 
+                    #8B0000 0%, 
+                    #6B0000 30%,
+                    transparent 60%),
+                /* Küçük damla sağ */
+                radial-gradient(circle 12px at 80% 45%, 
+                    #8B0000 0%, 
+                    #5B0000 35%,
+                    transparent 55%),
+                /* Sıçrama */
+                radial-gradient(ellipse 15px 20px at 65% 60%, 
+                    #7B0000 0%, 
+                    transparent 65%),
+                /* Mini damla */
+                radial-gradient(circle 8px at 35% 65%, 
+                    #8B0000 0%, 
+                    transparent 50%);
+            opacity: 0.7;
+            z-index: 2;
+            pointer-events: none;
+            filter: blur(0.4px);
+        }
+
+        /* Küçük kan akıntısı */
+        .hero-subtitle::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            height: 35px;
+            background: linear-gradient(to bottom, 
+                #8B0000 0%, 
+                #6B0000 35%, 
+                transparent 100%);
+            top: 40%;
+            left: 17%;
+            opacity: 0.75;
+            border-radius: 50%;
+            filter: blur(0.2px);
+        }
+
+        /* Telegram Kanal Butonu */
+        .telegram-channel-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #0088cc 0%, #00a0e9 100%);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50px;
+            color: white;
+            text-decoration: none;
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            margin-top: 2.5rem;
+            opacity: 0;
+            animation: fadeInButton 1.5s ease-out 2.8s forwards;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 136, 204, 0.4);
+            position: relative;
+            z-index: 2;
+        }
+
+        .telegram-channel-btn:hover {
+            background: linear-gradient(135deg, #00a0e9 0%, #00b8ff 100%);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 30px rgba(0, 136, 204, 0.6);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .telegram-channel-btn svg {
+            transition: transform 0.3s ease;
+        }
+
+        .telegram-channel-btn:hover svg {
+            transform: rotate(15deg) scale(1.1);
+        }
+
+        @keyframes fadeInButton {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        body.day-mode .telegram-channel-btn {
+            background: linear-gradient(135deg, #0088cc 0%, #00a0e9 100%);
+            box-shadow: 0 4px 20px rgba(0, 136, 204, 0.3);
+        }
+
+        body.day-mode .telegram-channel-btn:hover {
+            box-shadow: 0 8px 30px rgba(0, 136, 204, 0.5);
+        }
+
+        @media (max-width: 768px) {
+            .telegram-channel-btn {
+                font-size: 1rem;
+                padding: 0.8rem 1.5rem;
+                margin-top: 2rem;
+            }
+        }
+
+        @keyframes smokeRevealSubtitle {
+            0% {
+                opacity: 0;
+                filter: blur(40px) brightness(0.3);
+                transform: scale(1.3) translateY(20px);
+                text-shadow: 0 0 80px rgba(255,255,255,0.8),
+                            0 0 120px rgba(255,255,255,0.6);
+            }
+            30% {
+                opacity: 0.3;
+                filter: blur(25px) brightness(0.6);
+                transform: scale(1.15) translateY(15px);
+            }
+            60% {
+                opacity: 0.7;
+                filter: blur(10px) brightness(0.9);
+                transform: scale(1.05) translateY(5px);
+            }
+            100% {
+                opacity: 1;
+                filter: blur(0px) brightness(1);
+                transform: scale(1) translateY(0);
+                text-shadow: 0 0 20px rgba(255,255,255,0.5),
+                            2px 2px 4px rgba(0,0,0,0.8);
+            }
+        }
+
+        @keyframes fadeInTitle {
+            0% {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInSubtitle {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Smoke Effect */
+        .smoke-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .smoke {
+            position: absolute;
+            bottom: -100px;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, rgba(200,200,200,0.08) 30%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(40px);
+            animation: smokeRise var(--duration) ease-out infinite;
+            opacity: 0;
+        }
+
+        .smoke:nth-child(1) {
+            left: 15%;
+            --duration: 8s;
+            animation-delay: 0s;
+        }
+
+        .smoke:nth-child(2) {
+            left: 35%;
+            --duration: 10s;
+            animation-delay: 2s;
+        }
+
+        .smoke:nth-child(3) {
+            left: 55%;
+            --duration: 9s;
+            animation-delay: 4s;
+        }
+
+        .smoke:nth-child(4) {
+            left: 75%;
+            --duration: 11s;
+            animation-delay: 1s;
+        }
+
+        .smoke:nth-child(5) {
+            left: 25%;
+            --duration: 12s;
+            animation-delay: 3s;
+        }
+
+        .smoke:nth-child(6) {
+            left: 65%;
+            --duration: 10s;
+            animation-delay: 5s;
+        }
+
+        @keyframes smokeRise {
+            0% {
+                transform: translateY(0) translateX(0) scale(0.8);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            50% {
+                opacity: 0.4;
+                transform: translateY(-50vh) translateX(30px) scale(1.2);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-100vh) translateX(-20px) scale(1.5);
+            }
+        }
+
+        /* Content Sections */
+        .content {
+            position: relative;
+            z-index: 1;
+            background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.95) 10%, rgba(0,0,0,0.98) 100%);
+            padding: 4rem 2rem;
+        }
+
+        .section {
+            max-width: 1200px;
+            margin: 0 auto 6rem;
+            padding: 3rem;
+            background: rgba(20, 20, 20, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.1s ease-out;
+            will-change: transform;
+        }
+
+        /* Kan efekti arka plan */
+        .section::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 15% 20%, rgba(139, 0, 0, 0.15) 0%, transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(139, 0, 0, 0.12) 0%, transparent 20%),
+                radial-gradient(circle at 45% 70%, rgba(139, 0, 0, 0.18) 0%, transparent 30%),
+                radial-gradient(circle at 70% 80%, rgba(139, 0, 0, 0.1) 0%, transparent 22%),
+                radial-gradient(circle at 25% 60%, rgba(139, 0, 0, 0.14) 0%, transparent 28%),
+                radial-gradient(circle at 90% 65%, rgba(139, 0, 0, 0.11) 0%, transparent 18%),
+                radial-gradient(ellipse at 35% 15%, rgba(139, 0, 0, 0.13) 0%, transparent 35%),
+                radial-gradient(ellipse at 60% 45%, rgba(139, 0, 0, 0.16) 0%, transparent 25%);
+            opacity: 0.3;
+            z-index: 0;
+            pointer-events: none;
+            animation: bloodPulse 8s ease-in-out infinite;
+        }
+
+        @keyframes bloodPulse {
+            0%, 100% {
+                opacity: 0.3;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.5;
+                transform: scale(1.02);
+            }
+        }
+
+        .section * {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Kan damlası sıçrama efekti - kenar detayları */
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 10%;
+            right: 5%;
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle, rgba(139, 0, 0, 0.25) 0%, transparent 60%);
+            border-radius: 50% 50% 60% 40%;
+            opacity: 0.4;
+            z-index: 0;
+            filter: blur(3px);
+        }
+
+        .section-with-image {
+            display: grid;
+            grid-template-columns: 1fr 500px;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .section-with-image .section-content {
+            padding-right: 2rem;
+        }
+
+        .section-with-image .section-image {
+            width: 100%;
+            height: 600px;
+            object-fit: cover;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7);
+            transition: all 0.5s ease;
+            position: relative;
+            filter: brightness(0.85) contrast(1.1);
+        }
+
+        .section-with-image .section-image:hover {
+            transform: scale(1.08) rotate(1deg);
+            box-shadow: 0 20px 60px rgba(255, 255, 255, 0.1),
+                        0 0 80px rgba(255, 255, 255, 0.05),
+                        inset 0 0 100px rgba(255, 255, 255, 0.05);
+            filter: brightness(1.1) contrast(1.2);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Işık yansıması efekti */
+        .section-with-image .section-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.3),
+                transparent
+            );
+            transition: left 0.7s ease;
+        }
+
+        .section-with-image:hover .section-image::before {
+            left: 100%;
+        }
+
+        /* Parıltı animasyonu */
+        @keyframes shine {
+            0% {
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7);
+            }
+            50% {
+                box-shadow: 0 8px 40px rgba(255, 255, 255, 0.2),
+                            0 0 60px rgba(255, 255, 255, 0.1);
+            }
+            100% {
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7);
+            }
+        }
+
+        .section-with-image .section-image {
+            animation: shine 3s ease-in-out infinite;
+        }
+
+        @media (max-width: 968px) {
+            .section-with-image {
+                grid-template-columns: 1fr;
+            }
+
+            .section-with-image .section-image {
+                height: 400px;
+            }
+        }
+
+        .section h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            letter-spacing: 0.1em;
+            margin-bottom: 2rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+        }
+
+        .section p {
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .card {
+            background: rgba(40, 40, 40, 0.6);
+            padding: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: all 0.4s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            background: rgba(50, 50, 50, 0.8);
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        .card h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            letter-spacing: 0.05em;
+        }
+
+        .card p {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Alıntılar Bölümü */
+        .quotes-section {
+            background: rgba(10, 10, 10, 0.9);
+            border: 2px solid rgba(139, 0, 0, 0.3);
+        }
+
+        .quotes-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+
+        .quote-card {
+            background: rgba(20, 20, 20, 0.8);
+            padding: 2.5rem;
+            border-left: 4px solid #8B0000;
+            position: relative;
+            transition: all 0.4s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .quote-card:hover {
+            transform: translateY(-8px);
+            background: rgba(30, 30, 30, 0.9);
+            border-left-color: #FF0000;
+            box-shadow: 0 8px 40px rgba(139, 0, 0, 0.4),
+                        0 0 60px rgba(139, 0, 0, 0.2);
+        }
+
+        .quote-mark {
+            font-family: 'Cinzel', serif;
+            font-size: 5rem;
+            color: rgba(139, 0, 0, 0.3);
+            line-height: 0;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        .quote-text {
+            font-family: 'Cinzel', serif;
+            font-size: 1.3rem;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 1.5rem;
+            font-style: italic;
+            font-weight: 400;
+        }
+
+        .quote-author {
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            color: rgba(139, 0, 0, 0.9);
+            text-align: right;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(139, 0, 0, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .quotes-container {
+                grid-template-columns: 1fr;
+            }
+
+            .quote-card {
+                padding: 2rem;
+            }
+
+            .quote-mark {
+                font-size: 4rem;
+            }
+
+            .quote-text {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(180deg, rgba(0,0,0,0.95) 0%, rgba(0,0,0,1) 100%);
+            border-top: 2px solid rgba(139, 0, 0, 0.3);
+            padding: 4rem 2rem 2rem;
+            margin-top: 4rem;
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse at 20% 50%, rgba(139, 0, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 50%, rgba(139, 0, 0, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-section h3,
+        .footer-section h4 {
+            font-family: 'Cinzel', serif;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.1em;
+        }
+
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-tagline {
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.6);
+            letter-spacing: 0.2em;
+        }
+
+        .footer-section h4 {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.9);
+            border-bottom: 2px solid rgba(139, 0, 0, 0.5);
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .footer-links a:hover {
+            color: #fff;
+            padding-left: 10px;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .social-icon:hover {
+            background: rgba(139, 0, 0, 0.8);
+            color: #fff;
+            border-color: rgba(255, 255, 255, 0.4);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 2rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.9rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-bottom p {
+            margin: 0.5rem 0;
+        }
+
+        .footer-quote {
+            font-family: 'Cinzel', serif;
+            font-style: italic;
+            letter-spacing: 0.1em;
+            color: rgba(139, 0, 0, 0.8);
+        }
+
+        body.day-mode .footer {
+            background: linear-gradient(180deg, rgba(240,240,240,0.95) 0%, rgba(255,255,255,1) 100%);
+            border-top-color: rgba(200, 200, 200, 0.5);
+        }
+
+        body.day-mode .footer-logo,
+        body.day-mode .footer-section h4 {
+            color: #1a1a1a;
+        }
+
+        body.day-mode .footer-tagline {
+            color: rgba(0, 0, 0, 0.6);
+        }
+
+        body.day-mode .footer-section h4 {
+            border-bottom-color: rgba(200, 200, 200, 0.5);
+        }
+
+        body.day-mode .footer-links a {
+            color: rgba(0, 0, 0, 0.7);
+        }
+
+        body.day-mode .footer-links a:hover {
+            color: #000;
+        }
+
+        body.day-mode .social-icon {
+            background: rgba(0, 0, 0, 0.05);
+            color: rgba(0, 0, 0, 0.7);
+            border-color: rgba(0, 0, 0, 0.2);
+        }
+
+        body.day-mode .social-icon:hover {
+            background: rgba(255, 107, 107, 0.8);
+            color: #fff;
+        }
+
+        body.day-mode .footer-bottom {
+            border-top-color: rgba(0, 0, 0, 0.1);
+            color: rgba(0, 0, 0, 0.5);
+        }
+
+        body.day-mode .footer-quote {
+            color: rgba(255, 107, 107, 0.8);
+        }
+
+        @media (max-width: 768px) {
+            .footer {
+                padding: 3rem 1.5rem 1.5rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .footer-logo {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Audio Control */
+        .audio-control {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 100;
+            background: linear-gradient(135deg, #1a1a1a 0%, #4a4a4a 100%);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            padding: 0;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .audio-control:hover {
+            background: linear-gradient(135deg, #2a2a2a 0%, #5a5a5a 100%);
+            border-color: rgba(255, 255, 255, 0.4);
+            transform: scale(1.1);
+            box-shadow: 0 6px 30px rgba(255, 255, 255, 0.4);
+        }
+
+        .audio-control.muted {
+            background: linear-gradient(135deg, #3a3a3a 0%, #6a6a6a 100%);
+        }
+
+        .audio-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .audio-control:hover .audio-icon {
+            transform: scale(1.1);
+        }
+
+        body.day-mode .audio-control {
+            background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
+            border-color: rgba(0, 0, 0, 0.2);
+            color: #1a1a1a;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        body.day-mode .audio-control:hover {
+            background: linear-gradient(135deg, #e5e5e5 0%, #f5f5f5 100%);
+            border-color: rgba(0, 0, 0, 0.3);
+            box-shadow: 0 6px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        body.day-mode .audio-control.muted {
+            background: linear-gradient(135deg, #d5d5d5 0%, #e5e5e5 100%);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            bottom: 2rem;
+            right: 7rem;
+            z-index: 100;
+            background: linear-gradient(135deg, #1a1a1a 0%, #4a4a4a 100%);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            padding: 0;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .theme-toggle:hover {
+            background: linear-gradient(135deg, #2a2a2a 0%, #5a5a5a 100%);
+            border-color: rgba(255, 255, 255, 0.4);
+            transform: scale(1.1);
+            box-shadow: 0 6px 30px rgba(255, 255, 255, 0.4);
+        }
+
+        .theme-icon {
+            transition: transform 0.5s ease;
+        }
+
+        .theme-toggle:hover .theme-icon {
+            transform: rotate(20deg) scale(1.1);
+        }
+
+        body.day-mode .theme-toggle {
+            background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
+            border-color: rgba(0, 0, 0, 0.2);
+            color: #1a1a1a;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        body.day-mode .theme-toggle:hover {
+            background: linear-gradient(135deg, #e5e5e5 0%, #f5f5f5 100%);
+            border-color: rgba(0, 0, 0, 0.3);
+            box-shadow: 0 6px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Yukarı Çık Butonu */
+        .scroll-to-top {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            z-index: 100;
+            background: rgba(20, 20, 20, 0.9);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 1rem;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+        }
+
+        .scroll-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .scroll-to-top:hover {
+            background: rgba(40, 40, 40, 0.95);
+            border-color: rgba(255, 255, 255, 0.6);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
+        }
+
+        body.day-mode .scroll-to-top {
+            background: rgba(255, 255, 255, 0.9);
+            border-color: rgba(0, 0, 0, 0.3);
+        }
+
+        body.day-mode .scroll-to-top:hover {
+            background: rgba(240, 240, 240, 0.95);
+            border-color: rgba(0, 0, 0, 0.6);
+        }
+
+        .scroll-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        body.day-mode .scroll-icon {
+            color: #1a1a1a;
+        }
+
+        /* Fingerprint Scanner Overlay */
+        .fingerprint-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .fingerprint-overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .scanner-container {
+            background: linear-gradient(145deg, rgba(10, 20, 30, 0.9), rgba(5, 10, 15, 0.95));
+            border: 2px solid rgba(0, 200, 255, 0.3);
+            border-radius: 20px;
+            padding: 3rem 2.5rem;
+            max-width: 450px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0, 200, 255, 0.2),
+                        0 0 100px rgba(0, 200, 255, 0.1);
+            animation: scannerPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes scannerPulse {
+            0%, 100% {
+                box-shadow: 0 20px 60px rgba(0, 200, 255, 0.2),
+                            0 0 100px rgba(0, 200, 255, 0.1);
+            }
+            50% {
+                box-shadow: 0 20px 60px rgba(0, 200, 255, 0.4),
+                            0 0 100px rgba(0, 200, 255, 0.2);
+            }
+        }
+
+        .scanner-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .scanner-header h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            color: #00d4ff;
+            letter-spacing: 0.2em;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+        }
+
+        .scanner-subtitle {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+            letter-spacing: 0.05em;
+        }
+
+        .fingerprint-scanner {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 2rem;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(circle, rgba(0, 200, 255, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .fingerprint-svg {
+            width: 150px;
+            height: 150px;
+            filter: drop-shadow(0 0 10px rgba(0, 200, 255, 0.5));
+            animation: fingerprintGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes fingerprintGlow {
+            0%, 100% {
+                filter: drop-shadow(0 0 10px rgba(0, 200, 255, 0.5));
+            }
+            50% {
+                filter: drop-shadow(0 0 20px rgba(0, 200, 255, 0.8));
+            }
+        }
+
+        .scan-line {
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                #00d4ff 50%, 
+                transparent 100%);
+            top: 0;
+            animation: scanning 2s ease-in-out infinite;
+            box-shadow: 0 0 10px #00d4ff;
+        }
+
+        @keyframes scanning {
+            0%, 100% {
+                top: 0;
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                top: 100%;
+                opacity: 0;
+            }
+        }
+
+        .pulse-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border: 2px solid rgba(0, 200, 255, 0.6);
+            border-radius: 50%;
+            animation: pulsing 2s ease-out infinite;
+        }
+
+        @keyframes pulsing {
+            0% {
+                transform: scale(0.8);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        .scanner-status {
+            text-align: center;
+            margin-bottom: 2rem;
+            min-height: 50px;
+        }
+
+        .scanner-status p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+            animation: statusBlink 1.5s ease-in-out infinite;
+        }
+
+        @keyframes statusBlink {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        .scan-button {
+            width: 100%;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #00a8cc 0%, #00d4ff 100%);
+            border: 2px solid rgba(0, 200, 255, 0.5);
+            border-radius: 10px;
+            color: white;
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 200, 255, 0.3);
+            margin-bottom: 1.5rem;
+        }
+
+        .scan-button:hover {
+            background: linear-gradient(135deg, #00d4ff 0%, #00e8ff 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 30px rgba(0, 200, 255, 0.5);
+        }
+
+        .scan-button:active {
+            transform: translateY(0);
+        }
+
+        .scanner-footer {
+            display: flex;
+            justify-content: center;
+        }
+
+        .security-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.8rem;
+        }
+
+        .security-badge svg {
+            color: rgba(0, 200, 255, 0.7);
+        }
+
+        /* Success Animation */
+        @keyframes scanSuccess {
+            0% {
+                border-color: rgba(0, 200, 255, 0.3);
+            }
+            50% {
+                border-color: rgba(0, 255, 100, 1);
+                box-shadow: 0 20px 60px rgba(0, 255, 100, 0.6),
+                            0 0 100px rgba(0, 255, 100, 0.4);
+            }
+            100% {
+                border-color: rgba(0, 200, 255, 0.3);
+            }
+        }
+
+        .scanner-container.success {
+            animation: scanSuccess 0.5s ease;
+        }
+
+        .scanner-container.success .fingerprint-svg {
+            filter: drop-shadow(0 0 30px rgba(0, 255, 100, 1));
+        }
+
+        /* CCTV Overlay */
+        .cctv-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            font-family: 'Courier New', monospace;
+        }
+
+        .cctv-top-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 1rem 1.5rem;
+            background: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, transparent 100%);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cctv-left {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .rec-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #ff0000;
+            font-weight: bold;
+            font-size: 1rem;
+            letter-spacing: 0.1em;
+        }
+
+        .rec-dot {
+            width: 12px;
+            height: 12px;
+            background: #ff0000;
+            border-radius: 50%;
+            animation: recBlink 1s ease-in-out infinite;
+            box-shadow: 0 0 10px #ff0000;
+        }
+
+        @keyframes recBlink {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.3;
+            }
+        }
+
+        .camera-info {
+            display: flex;
+            flex-direction: column;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.75rem;
+        }
+
+        .camera-id {
+            font-weight: bold;
+            color: #00ff00;
+            text-shadow: 0 0 5px #00ff00;
+        }
+
+        .camera-location {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.7rem;
+        }
+
+        .cctv-right .datetime {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.9rem;
+            font-weight: bold;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+        }
+
+        .cctv-bottom-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1rem 1.5rem;
+            background: linear-gradient(0deg, rgba(0,0,0,0.8) 0%, transparent 100%);
+        }
+
+        .cctv-status {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+        }
+
+        .cctv-grid {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .grid-line {
+            height: 3px;
+            flex: 1;
+            background: rgba(0, 255, 0, 0.3);
+            animation: gridPulse 2s ease-in-out infinite;
+        }
+
+        .grid-line:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+
+        .grid-line:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        @keyframes gridPulse {
+            0%, 100% {
+                background: rgba(0, 255, 0, 0.3);
+            }
+            50% {
+                background: rgba(0, 255, 0, 0.7);
+            }
+        }
+
+        /* Köşe İşaretleri */
+        .cctv-corner {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border: 2px solid rgba(255, 0, 0, 0.6);
+        }
+
+        .corner-tl {
+            top: 10px;
+            left: 10px;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        .corner-tr {
+            top: 10px;
+            right: 10px;
+            border-left: none;
+            border-bottom: none;
+        }
+
+        .corner-bl {
+            bottom: 10px;
+            left: 10px;
+            border-right: none;
+            border-top: none;
+        }
+
+        .corner-br {
+            bottom: 10px;
+            right: 10px;
+            border-left: none;
+            border-top: none;
+        }
+
+        /* Scan Line Effect */
+        .cctv-scanline {
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(0, 255, 0, 0.5) 50%, 
+                transparent 100%);
+            top: 0;
+            animation: cctvScan 3s linear infinite;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+        }
+
+        @keyframes cctvScan {
+            0% {
+                top: 0;
+            }
+            100% {
+                top: 100%;
+            }
+        }
+
+        /* Vignette Effect */
+        .cctv-overlay::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, transparent 60%, rgba(0, 0, 0, 0.5) 100%);
+            pointer-events: none;
+        }
+
+        /* Noise/Grain Effect */
+        .cctv-overlay::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+            opacity: 0.3;
+            animation: grain 0.5s steps(2) infinite;
+            pointer-events: none;
+        }
+
+        @keyframes grain {
+            0%, 100% { transform: translate(0, 0); }
+            10% { transform: translate(-5%, -5%); }
+            20% { transform: translate(-10%, 5%); }
+            30% { transform: translate(5%, -10%); }
+            40% { transform: translate(-5%, 15%); }
+            50% { transform: translate(-10%, 5%); }
+            60% { transform: translate(15%, 0); }
+            70% { transform: translate(0, 10%); }
+            80% { transform: translate(-15%, 0); }
+            90% { transform: translate(10%, 5%); }
+        }
+
+        body.day-mode .cctv-overlay {
+            opacity: 0.7;
+        }
+
+        @media (max-width: 768px) {
+            .cctv-top-bar {
+                padding: 0.8rem 1rem;
+            }
+
+            .camera-info {
+                font-size: 0.65rem;
+            }
+
+            .rec-indicator {
+                font-size: 0.85rem;
+            }
+
+            .rec-dot {
+                width: 10px;
+                height: 10px;
+            }
+
+            .cctv-corner {
+                width: 20px;
+                height: 20px;
+            }
+        }
+
+        /* Paylaşma Butonları - Facebook Tarzı */
+        .share-buttons {
+            position: fixed;
+            bottom: 8rem;
+            right: 2rem;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .share-btn {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transform: scale(0) translateY(20px);
+            cursor: pointer;
+        }
+
+        .share-btn.show {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+
+        .share-btn:hover {
+            transform: scale(1.2) translateY(0);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .share-btn.twitter {
+            background: #1DA1F2;
+            color: white;
+            transition-delay: 0.1s;
+        }
+
+        .share-btn.facebook {
+            background: #1877F2;
+            color: white;
+            transition-delay: 0.2s;
+        }
+
+        .share-btn.whatsapp {
+            background: #25D366;
+            color: white;
+            transition-delay: 0.3s;
+        }
+
+        .share-btn.telegram {
+            background: #0088cc;
+            color: white;
+            transition-delay: 0.4s;
+        }
+
+        .share-trigger {
+            background: linear-gradient(135deg, #1a1a1a 0%, #4a4a4a 100%);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            padding: 0;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            animation: pulse 2s ease-in-out infinite;
+            color: white;
+        }
+
+        .share-trigger svg {
+            transition: transform 0.3s ease;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            }
+            50% {
+                box-shadow: 0 4px 30px rgba(255, 255, 255, 0.3);
+            }
+        }
+
+        .share-trigger:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 30px rgba(255, 255, 255, 0.4);
+            border-color: rgba(255, 255, 255, 0.4);
+            background: linear-gradient(135deg, #2a2a2a 0%, #5a5a5a 100%);
+        }
+
+        .share-trigger:hover svg {
+            transform: translateX(3px);
+        }
+
+        .share-trigger.active {
+            background: linear-gradient(135deg, #3a3a3a 0%, #6a6a6a 100%);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .share-trigger.active svg {
+            transform: rotate(180deg);
+        }
+
+        body.day-mode .share-trigger {
+            background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
+            border-color: rgba(0, 0, 0, 0.2);
+            color: #1a1a1a;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        body.day-mode .share-trigger:hover {
+            background: linear-gradient(135deg, #e5e5e5 0%, #f5f5f5 100%);
+            border-color: rgba(0, 0, 0, 0.3);
+            box-shadow: 0 6px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        body.day-mode .share-trigger.active {
+            background: linear-gradient(135deg, #d5d5d5 0%, #e5e5e5 100%);
+        }
+
+        @media (max-width: 768px) {
+            .share-buttons {
+                bottom: 6rem;
+                right: 1rem;
+            }
+
+            .share-trigger {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+
+            .share-btn {
+                width: 50px;
+                height: 50px;
+            }
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            animation: fadeIn 1s ease-out 3s forwards, bounce 2s ease-in-out 4s infinite;
+        }
+
+        .scroll-indicator::before {
+            content: '';
+            display: block;
+            width: 2px;
+            height: 40px;
+            background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.8));
+            margin: 0 auto 8px;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .section {
+                padding: 2rem 1.5rem;
+            }
+            
+            .audio-control {
+                bottom: 1rem;
+                right: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Video Background -->
+    <div class="video-background">
+        <video autoplay muted loop playsinline id="bgVideo">
+            <source src="video_-_Trim.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <!-- Fingerprint Scanner Overlay -->
+    <div class="fingerprint-overlay" id="fingerprintOverlay">
+        <div class="scanner-container">
+            <div class="scanner-header">
+                <h2>BİYOMETRİK DOĞRULAMA</h2>
+                <p class="scanner-subtitle">Erişim İçin Parmak İzi Gerekli</p>
+            </div>
+            
+            <div class="fingerprint-scanner">
+                <svg class="fingerprint-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M50,20 Q30,30 30,50 Q30,70 50,80" stroke="rgba(0, 200, 255, 0.6)" fill="none" stroke-width="2"/>
+                    <path d="M50,25 Q35,33 35,50 Q35,67 50,75" stroke="rgba(0, 200, 255, 0.5)" fill="none" stroke-width="2"/>
+                    <path d="M50,30 Q40,37 40,50 Q40,63 50,70" stroke="rgba(0, 200, 255, 0.4)" fill="none" stroke-width="2"/>
+                    <path d="M50,35 Q44,40 44,50 Q44,60 50,65" stroke="rgba(0, 200, 255, 0.3)" fill="none" stroke-width="2"/>
+                    <path d="M50,20 Q70,30 70,50 Q70,70 50,80" stroke="rgba(0, 200, 255, 0.6)" fill="none" stroke-width="2"/>
+                    <path d="M50,25 Q65,33 65,50 Q65,67 50,75" stroke="rgba(0, 200, 255, 0.5)" fill="none" stroke-width="2"/>
+                    <path d="M50,30 Q60,37 60,50 Q60,63 50,70" stroke="rgba(0, 200, 255, 0.4)" fill="none" stroke-width="2"/>
+                    <path d="M50,35 Q56,40 56,50 Q56,60 50,65" stroke="rgba(0, 200, 255, 0.3)" fill="none" stroke-width="2"/>
+                    <circle cx="50" cy="50" r="15" stroke="rgba(0, 200, 255, 0.4)" fill="none" stroke-width="2"/>
+                    <circle cx="50" cy="50" r="10" stroke="rgba(0, 200, 255, 0.3)" fill="none" stroke-width="2"/>
+                    <circle cx="50" cy="50" r="5" stroke="rgba(0, 200, 255, 0.2)" fill="none" stroke-width="2"/>
+                </svg>
+                <div class="scan-line"></div>
+                <div class="pulse-ring"></div>
+            </div>
+            
+            <div class="scanner-status" id="scannerStatus">
+                <p>Parmağınızı Tarayıcıya Yerleştirin</p>
+            </div>
+            
+            <button class="scan-button" id="scanButton">
+                <span>TARA</span>
+            </button>
+            
+            <div class="scanner-footer">
+                <div class="security-badge">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                        <path d="M8 0L2 3v4c0 3.5 2.5 6.5 6 7 3.5-.5 6-3.5 6-7V3L8 0zm0 2l4 2v3c0 2.5-1.5 4.5-4 5-2.5-.5-4-2.5-4-5V4l4-2z"/>
+                        <path d="M7 8l-2-2-1 1 3 3 5-5-1-1z"/>
+                    </svg>
+                    <span>256-bit Şifreleme</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CCTV Overlay -->
+    <div class="cctv-overlay" id="cctvOverlay">
+        <!-- Üst Bilgiler -->
+        <div class="cctv-top-bar">
+            <div class="cctv-left">
+                <div class="rec-indicator">
+                    <div class="rec-dot"></div>
+                    <span>REC</span>
+                </div>
+                <div class="camera-info">
+                    <span class="camera-id">CAM-01</span>
+                    <span class="camera-location">MAIN ENTRANCE</span>
+                </div>
+            </div>
+            <div class="cctv-right">
+                <div class="datetime" id="cctvDateTime"></div>
+            </div>
+        </div>
+
+        <!-- Alt Bilgiler -->
+        <div class="cctv-bottom-bar">
+            <div class="cctv-status">
+                <span>SECURITY MONITORING SYSTEM v2.5</span>
+            </div>
+            <div class="cctv-grid">
+                <div class="grid-line"></div>
+                <div class="grid-line"></div>
+                <div class="grid-line"></div>
+            </div>
+        </div>
+
+        <!-- Köşe İşaretleri -->
+        <div class="cctv-corner corner-tl"></div>
+        <div class="cctv-corner corner-tr"></div>
+        <div class="cctv-corner corner-bl"></div>
+        <div class="cctv-corner corner-br"></div>
+
+        <!-- Scan Line -->
+        <div class="cctv-scanline"></div>
+    </div>
+
+    <!-- Smoke Effect -->
+    <div class="smoke-container">
+        <div class="smoke"></div>
+        <div class="smoke"></div>
+        <div class="smoke"></div>
+        <div class="smoke"></div>
+        <div class="smoke"></div>
+        <div class="smoke"></div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1 class="hero-title">ANVAR MUSSAYEV</h1>
+        <h2 class="hero-subtitle">Vor v Zakone</h2>
+        
+        <!-- Telegram Kanal Butonu -->
+        <a href="https://t.me/Munichhg" target="_blank" class="telegram-channel-btn" title="Telegram Kanalı">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+            </svg>
+            <span>Telegram Kanalımız</span>
+        </a>
+        
+        <div class="scroll-indicator">↓</div>
+    </section>
+
+    <!-- Content Sections -->
+    <div class="content">
+        <section class="section section-with-image">
+            <div class="section-content">
+                <h2>HAKKINDA</h2>
+                <p>Anvar Mussayev, güç ve prestijin simgesi olarak tanınan isimlerden biridir. Karizma ve etki alanıyla dikkat çeken bir lider figürü olarak bilinir.</p>
+                <p>Vor v Zakone geleneğinin modern temsilcisi olarak, saygı ve otorite kavramlarını en üst seviyede temsil eder.</p>
+            </div>
+            <img src="stigrom.jpg" alt="Anvar Mussayev" class="section-image">
+        </section>
+
+        <section class="section section-with-image">
+            <div class="section-content">
+                <h2>PRENSİPLER</h2>
+                <div class="grid">
+                    <div class="card">
+                        <h3>ONUR</h3>
+                        <p>Söz verdiğinde sözünde durur. Onur, her şeyin üzerindedir.</p>
+                    </div>
+                    <div class="card">
+                        <h3>SADAKAT</h3>
+                        <p>Güven ve sadakat, ilişkilerin temel taşlarıdır.</p>
+                    </div>
+                    <div class="card">
+                        <h3>GÜÇLÜLÜK</h3>
+                        <p>Zorluklar karşısında daima ayakta kalır ve liderlik gösterir.</p>
+                    </div>
+                </div>
+            </div>
+            <img src="interpol2.jpeg" alt="Prensipler" class="section-image">
+        </section>
+
+        <section class="section section-with-image">
+            <div class="section-content">
+                <h2>MİRAS</h2>
+                <p>Geçmişten gelen değerleri koruyarak, geleceğe yön veren bir vizyon taşır. Her adım, bir miras bırakma bilinciyle atılır.</p>
+                <p>Toplumda bıraktığı iz, nesiller boyunca anılacak bir etki yaratmıştır.</p>
+            </div>
+            <img src="pizdittigra.jpg" alt="Miras" class="section-image">
+        </section>
+
+        <section class="section section-with-image">
+            <div class="section-content">
+                <h2>ETKİ ALANI</h2>
+                <div class="grid">
+                    <div class="card">
+                        <h3>STRATEJİ</h3>
+                        <p>Her hareket, uzun vadeli bir planın parçasıdır.</p>
+                    </div>
+                    <div class="card">
+                        <h3>NÜFuz</h3>
+                        <p>Sözü geçer, kararları etkilidir.</p>
+                    </div>
+                    <div class="card">
+                        <h3>KONTROL</h3>
+                        <p>Her durum kontrol altındadır, hiçbir şey tesadüfi değildir.</p>
+                    </div>
+                </div>
+            </div>
+            <img src="etki-alani.jpg" alt="Etki Alanı" class="section-image">
+        </section>
+
+        <section class="section quotes-section">
+            <h2>ALINTILAR</h2>
+            <div class="quotes-container">
+                <div class="quote-card">
+                    <div class="quote-mark">"</div>
+                    <p class="quote-text">Bir adamın değeri, sözünde durmasıyla ölçülür.</p>
+                    <div class="quote-author">— Vor Geleneği</div>
+                </div>
+
+                <div class="quote-card">
+                    <div class="quote-mark">"</div>
+                    <p class="quote-text">Güç, sessizce kullanıldığında en etkilidir.</p>
+                    <div class="quote-author">— Anvar Mussayev</div>
+                </div>
+
+                <div class="quote-card">
+                    <div class="quote-mark">"</div>
+                    <p class="quote-text">Sadakat, altından daha değerlidir.</p>
+                    <div class="quote-author">— Vor Yasaları</div>
+                </div>
+
+                <div class="quote-card">
+                    <div class="quote-mark">"</div>
+                    <p class="quote-text">Zayıflık göstermek, düşmanlarını davet etmektir.</p>
+                    <div class="quote-author">— Anvar Mussayev</div>
+                </div>
+
+                <div class="quote-card">
+                    <div class="quote-mark">"</div>
+                    <p class="quote-text">Gerçek güç, korku değil saygı yaratır.</p>
+                    <div class="quote-author">— Vor Geleneği</div>
+                </div>
+
+                <div class="quote-card">
+                    <div class="quote-mark">"</div>
+                    <p class="quote-text">Önce dinle, sonra konuş, en son hareket et.</p>
+                    <div class="quote-author">— Anvar Mussayev</div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3 class="footer-logo">OLEG ROMANOVICH</h3>
+                <p class="footer-tagline">Programmer</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>BAĞLANTILAR</h4>
+                <ul class="footer-links">
+                    <li><a href="#" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">Ana Sayfa</a></li>
+                    <li><a href="https://t.me/Munichhg" target="_blank">Telegram Kanalı</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>TAKİP ET</h4>
+                <div class="footer-social">
+                    <a href="https://t.me/Munichhg" target="_blank" class="social-icon" title="Telegram">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                            <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-icon" title="Instagram">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="social-icon" title="Twitter">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                            <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 Oleg Romanovich. Tüm hakları saklıdır.</p>
+            <p class="footer-quote">Vor v Zakone - Yasa Hırsızı</p>
+        </div>
+    </footer>
+
+    <!-- Audio Control -->
+    <div class="audio-control" id="audioControl" title="Müziği Aç/Kapat">
+        <svg class="audio-icon" id="audioIconSvg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+        </svg>
+    </div>
+
+    <!-- Day/Night Toggle -->
+    <div class="theme-toggle" id="themeToggle" title="Gece/Gündüz Modu">
+        <svg class="theme-icon" id="themeIconSvg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+    </div>
+
+    <!-- Yukarı Çık Butonu -->
+    <div class="scroll-to-top" id="scrollToTop" title="Yukarı Çık">
+        <div class="scroll-icon">↑</div>
+    </div>
+
+    <!-- Paylaşma Butonları - Facebook Tarzı -->
+    <div class="share-buttons" id="shareButtons">
+        <a href="#" class="share-btn whatsapp" id="shareWhatsapp" title="WhatsApp'ta Paylaş">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+            </svg>
+        </a>
+        <a href="#" class="share-btn facebook" id="shareFacebook" title="Facebook'ta Paylaş">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+            </svg>
+        </a>
+        <a href="#" class="share-btn twitter" id="shareTwitter" title="Twitter'da Paylaş">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+            </svg>
+        </a>
+        <div class="share-trigger" id="shareTrigger" title="Paylaş">
+            <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
+                <path d="M21 11L14 4v3.5c-6.5 0-11.3 2.5-14 7.5 2.5-4 6.5-5.5 14-5.5V13l7-2z"/>
+            </svg>
+        </div>
+    </div>
+
+    <!-- Background Music -->
+    <audio id="bgMusic" loop autoplay>
+        <source src="dolyavorovskaya.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // Audio Control
+        const audio = document.getElementById('bgMusic');
+        const audioControl = document.getElementById('audioControl');
+        const audioIconSvg = document.getElementById('audioIconSvg');
+        let isPlaying = false;
+
+        // Multiple auto-play attempts
+        function tryAutoPlay() {
+            audio.play().then(() => {
+                isPlaying = true;
+                audioControl.classList.remove('muted');
+                console.log('Music started successfully');
+            }).catch(e => {
+                console.log('Auto-play prevented, waiting for user interaction');
+                isPlaying = false;
+                audioControl.classList.add('muted');
+                audioIconSvg.innerHTML = '<path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>';
+            });
+        }
+
+        // Try to play immediately when page loads
+        window.addEventListener('load', function() {
+            tryAutoPlay();
+        });
+
+        // Try again after a short delay
+        setTimeout(tryAutoPlay, 500);
+
+        // Audio control toggle
+        audioControl.addEventListener('click', function() {
+            if (isPlaying) {
+                audio.pause();
+                // Muted icon
+                audioIconSvg.innerHTML = '<path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>';
+                audioControl.classList.add('muted');
+                isPlaying = false;
+            } else {
+                audio.play();
+                // Playing icon
+                audioIconSvg.innerHTML = '<path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>';
+                audioControl.classList.remove('muted');
+                isPlaying = true;
+            }
+        });
+
+        // Auto-play on any user interaction (click, touch, scroll)
+        function startOnInteraction() {
+            if (!isPlaying) {
+                tryAutoPlay();
+            }
+        }
+
+        document.addEventListener('click', startOnInteraction, { once: true });
+        document.addEventListener('touchstart', startOnInteraction, { once: true });
+        document.addEventListener('scroll', startOnInteraction, { once: true });
+        document.addEventListener('keypress', startOnInteraction, { once: true });
+
+        // Theme Toggle (Day/Night)
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIconSvg = document.getElementById('themeIconSvg');
+        let isDayMode = false;
+
+        themeToggle.addEventListener('click', function() {
+            isDayMode = !isDayMode;
+            document.body.classList.toggle('day-mode');
+            
+            if (isDayMode) {
+                // Sun icon
+                themeIconSvg.innerHTML = '<path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0 .39-.39.39-1.03 0-1.41l-1.06-1.06zm1.06-10.96c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06zM7.05 18.36c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06z"/>';
+            } else {
+                // Moon icon
+                themeIconSvg.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
+            }
+        });
+
+        // Scroll to Top Button
+        const scrollToTopBtn = document.getElementById('scrollToTop');
+
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                scrollToTopBtn.classList.add('visible');
+            } else {
+                scrollToTopBtn.classList.remove('visible');
+            }
+
+            // Parallax Effect
+            parallaxEffect();
+        });
+
+        scrollToTopBtn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Parallax Scroll Effect
+        function parallaxEffect() {
+            const scrolled = window.pageYOffset;
+            const videoBackground = document.querySelector('.video-background');
+            const hero = document.querySelector('.hero');
+            const sections = document.querySelectorAll('.section');
+
+            // Video background parallax (yavaş hareket)
+            if (videoBackground) {
+                videoBackground.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+
+            // Hero section parallax
+            if (hero && scrolled < window.innerHeight) {
+                hero.style.transform = `translateY(${scrolled * 0.3}px)`;
+                hero.style.opacity = 1 - (scrolled / window.innerHeight);
+            }
+
+            // Sections parallax (hafif hareket)
+            sections.forEach((section, index) => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                const windowHeight = window.innerHeight;
+
+                if (scrolled > sectionTop - windowHeight && scrolled < sectionTop + sectionHeight) {
+                    const distance = scrolled - sectionTop + windowHeight;
+                    const movement = (distance * 0.1);
+                    section.style.transform = `translateY(${movement}px)`;
+                }
+            });
+        }
+
+        // Initial parallax setup
+        parallaxEffect();
+
+        // Fingerprint Scanner
+        const fingerprintOverlay = document.getElementById('fingerprintOverlay');
+        const scanButton = document.getElementById('scanButton');
+        const scannerStatus = document.getElementById('scannerStatus');
+        const scannerContainer = document.querySelector('.scanner-container');
+
+        scanButton.addEventListener('click', function() {
+            // Scanning animation
+            scannerStatus.innerHTML = '<p>Taranıyor...</p>';
+            scanButton.disabled = true;
+            scanButton.style.opacity = '0.5';
+
+            // Simulate scanning process
+            setTimeout(() => {
+                scannerStatus.innerHTML = '<p>Parmak İzi Analiz Ediliyor...</p>';
+            }, 1000);
+
+            setTimeout(() => {
+                scannerStatus.innerHTML = '<p>Doğrulama Başarılı! ✓</p>';
+                scannerStatus.style.color = '#00ff64';
+                scannerContainer.classList.add('success');
+            }, 2000);
+
+            // Hide overlay and show content
+            setTimeout(() => {
+                fingerprintOverlay.classList.add('hidden');
+            }, 3000);
+        });
+
+        // Auto-hide after 5 seconds if no interaction
+        setTimeout(() => {
+            if (!fingerprintOverlay.classList.contains('hidden')) {
+                fingerprintOverlay.classList.add('hidden');
+            }
+        }, 8000);
+
+        // CCTV DateTime Update
+        function updateCCTVDateTime() {
+            const now = new Date();
+            const date = now.toLocaleDateString('tr-TR', { 
+                day: '2-digit', 
+                month: '2-digit', 
+                year: 'numeric' 
+            });
+            const time = now.toLocaleTimeString('tr-TR', { 
+                hour: '2-digit', 
+                minute: '2-digit', 
+                second: '2-digit',
+                hour12: false
+            });
+            
+            const cctvDateTime = document.getElementById('cctvDateTime');
+            if (cctvDateTime) {
+                cctvDateTime.textContent = `${date} ${time}`;
+            }
+        }
+
+        // Update CCTV time every second
+        updateCCTVDateTime();
+        setInterval(updateCCTVDateTime, 1000);
+
+        // Share Buttons - Facebook Style
+        const shareTrigger = document.getElementById('shareTrigger');
+        const shareButtons = document.querySelectorAll('.share-btn');
+        let isShareOpen = false;
+
+        shareTrigger.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            isShareOpen = !isShareOpen;
+            
+            if (isShareOpen) {
+                shareTrigger.classList.add('active');
+                shareButtons.forEach(btn => btn.classList.add('show'));
+            } else {
+                shareTrigger.classList.remove('active');
+                shareButtons.forEach(btn => btn.classList.remove('show'));
+            }
+        });
+
+        // Close share menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (isShareOpen && !e.target.closest('.share-buttons')) {
+                shareTrigger.classList.remove('active');
+                shareButtons.forEach(btn => btn.classList.remove('show'));
+                isShareOpen = false;
+            }
+        });
+
+        // Share functionality
+        const pageUrl = encodeURIComponent(window.location.href);
+        const pageTitle = encodeURIComponent('ANVAR MUSSAYEV - Vor v Zakone');
+
+        document.getElementById('shareTwitter').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.open(`https://twitter.com/intent/tweet?url=${pageUrl}&text=${pageTitle}`, '_blank', 'width=550,height=420');
+        });
+
+        document.getElementById('shareFacebook').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${pageUrl}`, '_blank', 'width=550,height=420');
+        });
+
+        document.getElementById('shareWhatsapp').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.open(`https://wa.me/?text=${pageTitle}%20${pageUrl}`, '_blank');
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Parallax effect on scroll
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const video = document.getElementById('bgVideo');
+            if (video) {
+                video.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+    </script>
+</body>
+</html>
